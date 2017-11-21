@@ -1,5 +1,4 @@
-﻿
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
@@ -11,25 +10,29 @@ using System.Windows.Forms;
 
 namespace StudentViewer
 {
-  
+
     public partial class MainWindow : Window
     {
-        
-        
+
+
         public MainWindow()
         {
             InitializeComponent();
             Loaded += MainWindow_Loaded;
-            
+
         }
-        
+
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
+
             DataContext = new StudentsViewModel();
+
+
+
             EditBtn.IsEnabled = false;
             DeleteBtn.IsEnabled = false;
         }
-        
+
 
 
         private void CreateBtn_Click(object sender, RoutedEventArgs e)
@@ -48,13 +51,13 @@ namespace StudentViewer
 
         private void DeleteBtn_Click(object sender, RoutedEventArgs e)
         {
-           
-            if (StudentsDataGrid.SelectedItems != null )
+
+            if (StudentsDataGrid.SelectedItems != null)
             {
                 var student = StudentsDataGrid.SelectedItems;
                 if (student.Count > 1)
                 {
-                    MessageBoxResult result =System.Windows.MessageBox.Show("Do you really want to delete more than one record?",
+                    MessageBoxResult result = System.Windows.MessageBox.Show("Do you really want to delete more than one record?",
                                        "Multiple Delete",
                                        MessageBoxButton.OKCancel,
                                        MessageBoxImage.Warning,
@@ -75,27 +78,27 @@ namespace StudentViewer
                 {
                     Student studentModel = new Student();
                     studentModel = (Student)StudentsDataGrid.SelectedItem;
-                    
+
                     var studentLocal = XMLContext.StudentsToList(StaticData.Path);
-                    
+
                     studentLocal.Remove(studentLocal.Find(s => s.Id == studentModel.Id));
-                    
+
                     XMLContext.StudentsToXML(studentLocal, StaticData.Path);
                 }
             }
             DataContext = new StudentsViewModel();
         }
 
-        
+
 
         private void StudentsDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             DeleteBtn.IsEnabled = true;
-            if (StudentsDataGrid.SelectedItems.Count>1)
+            if (StudentsDataGrid.SelectedItems.Count > 1)
             {
-                
+
                 EditBtn.IsEnabled = false;
-                            }
+            }
             else
             {
                 EditBtn.IsEnabled = true;
@@ -104,12 +107,12 @@ namespace StudentViewer
 
         private void EditBtn_Click(object sender, RoutedEventArgs e)
         {
-            
+
             Student student = (Student)StudentsDataGrid.SelectedItem;
             EditWindow editWindow = new EditWindow(student);
             editWindow.Closed += OnEditWindow_Closed;
-           
-            
+
+
             editWindow.ShowDialog();
 
         }
@@ -126,9 +129,9 @@ namespace StudentViewer
             OpenFileDialog fileDialog = new OpenFileDialog();
             fileDialog.Filter = "xml files (*.xml)|*.xml";
 
-            if (fileDialog.ShowDialog()==System.Windows.Forms.DialogResult.OK)
+            if (fileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
-                StaticData.Path= fileDialog.FileName;
+                StaticData.Path = fileDialog.FileName;
             }
             DataContext = new StudentsViewModel();
         }
