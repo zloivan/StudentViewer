@@ -1,0 +1,45 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TestModelWpfDemo"
+        xmlns:Model="clr-namespace:TestModelWpfDemo.Model" x:Class="TestModelWpfDemo.MainWindow"
+        mc:Ignorable="d"
+        Title="Student Viewer" Height="350" Width="530" MaxWidth="600" MinWidth="530">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <StackPanel Orientation="Horizontal">
+            <TextBlock Text="Filter:" Margin="5"/>
+            <TextBox Text="{Binding FilterText, UpdateSourceTrigger=PropertyChanged}" Width="200" Margin="5"/>
+            <Button x:Name="createBtn" Content="Create New" Width="75" Margin="5" Click="CreateBtn_Click"/>
+            <Button x:Name="DeleteBtn" Content="Delete" Width="75" Margin="5" Click="DeleteBtn_Click" />
+            <Button x:Name="EditBtn" Content="Edit" Width="75" Margin="5" Click="EditBtn_Click"  />
+        </StackPanel>
+        <DataGrid 
+            RowBackground="Azure"
+            AlternatingRowBackground="Beige"
+            SelectionUnit="FullRow"  
+            x:Name="StudentsDataGrid" 
+            Grid.Row="1" Margin="5" 
+            ItemsSource="{Binding Items}" 
+            AutoGenerateColumns="False" 
+            Width="Auto" 
+            CanUserAddRows="False" 
+            CanUserDeleteRows="False" 
+            IsReadOnly="True" 
+            SelectionChanged="StudentsDataGrid_SelectionChanged"  >
+            <DataGrid.Columns>
+                <DataGridTextColumn Width="Auto" Header="Full Name" Binding="{Binding NameAndLastName}"/>
+                
+                <DataGridTextColumn Width="Auto" Header="Age" Binding="{Binding Age,StringFormat={}{0} лет}"/>
+                <DataGridTextColumn Width="*" Header="Gender" Binding="{Binding Gender}"/>
+            </DataGrid.Columns>
+
+        </DataGrid>
+    </Grid>
+</Window>
