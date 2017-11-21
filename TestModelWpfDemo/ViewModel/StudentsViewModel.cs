@@ -1,12 +1,13 @@
 ﻿using System.ComponentModel;
 using System.Windows;
 using System.Windows.Data;
-using TestModelWpfDemo.Model;
-namespace TestModelWpfDemo.ViewModel
+using StudentViewer.Model;
+
+namespace StudentViewer.ViewModel
 {
     class StudentsViewModel:DependencyObject
     {
-
+        
 
         public string FilterText
         {
@@ -20,8 +21,7 @@ namespace TestModelWpfDemo.ViewModel
 
         private static void FilterText_TextChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            var current = d as StudentsViewModel;
-            if (current!=null)
+            if (d is StudentsViewModel current)
             {
                 current.Items.Filter = null;
                 current.Items.Filter = current.FilterStudent;
@@ -40,7 +40,7 @@ namespace TestModelWpfDemo.ViewModel
 
         public StudentsViewModel()
         {
-            Items = CollectionViewSource.GetDefaultView(Data.XMLContext.StudentsToList("Students.xml"));
+            Items = CollectionViewSource.GetDefaultView(Data.XMLContext.StudentsToList(StudentViewer.Data.StaticData.Path));
             
             Items.Filter = FilterStudent;
         }

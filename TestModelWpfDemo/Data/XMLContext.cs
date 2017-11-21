@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Xml.Linq;
-using TestModelWpfDemo.Model;
+using StudentViewer.Model;
 
-namespace TestModelWpfDemo.Data
+namespace StudentViewer.Data
 {
     public class XMLContext
     {

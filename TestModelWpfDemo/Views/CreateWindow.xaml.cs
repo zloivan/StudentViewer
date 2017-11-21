@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Windows;
-using TestModelWpfDemo.Data;
-using TestModelWpfDemo.Model;
+using StudentViewer.Data;
+using StudentViewer.Model;
 
-namespace TestModelWpfDemo.Views
+namespace StudentViewer.Views
 {
     /// <summary>
     /// Interaction logic for CreateWindow.xaml
@@ -14,13 +14,13 @@ namespace TestModelWpfDemo.Views
     public partial class CreateWindow : Window
     {
 
-        string _path;
+        
 
         public CreateWindow()
         {
             InitializeComponent();
             Loaded += OnWindow_Loaded;
-            _path = "Students.xml";
+            
         }
 
 
@@ -56,14 +56,14 @@ namespace TestModelWpfDemo.Views
 
             if (ModelValidation.Validate(student).Count() == 0)
             {
-                List<Student> localStudent = XMLContext.StudentsToList(_path);
+                List<Student> localStudent = XMLContext.StudentsToList(StaticData.Path);
                 if (localStudent.Count != 0)
                 {
                     student.Id = localStudent.OrderBy(s => s.Id).LastOrDefault().Id++;
                 }
                 else student.Id = 0;
                 localStudent.Add(student);
-                XMLContext.StudentsToXML(localStudent, _path);
+                XMLContext.StudentsToXML(localStudent, StaticData.Path);
                 MessageBox.Show($"New student:\nName:{student.FirstName}\nLast Name:{student.LastName}\nAge: {student.Age}\nCreated","Created",MessageBoxButton.OK,MessageBoxImage.Information);
 
                 this.Close();
@@ -93,20 +93,20 @@ namespace TestModelWpfDemo.Views
 
     public partial class EditWindow : CreateWindow
     {
-        string _path;
+        
         Student _student;
         List<Student> _localStudents;
 
         public EditWindow() : base()
         {
-            _path = "Students.xml";
+            
             CreateButton.Content = "Edit";
-            _localStudents = XMLContext.StudentsToList(_path);
+            _localStudents = XMLContext.StudentsToList(StaticData.Path);
         }
         public EditWindow(Student student)
         {
-            _path = "Students.xml";
-            _localStudents = XMLContext.StudentsToList(_path);
+            
+            _localStudents = XMLContext.StudentsToList(StaticData.Path);
             CreateButton.Content = "Edit";
             _student = student;
 
@@ -155,7 +155,7 @@ namespace TestModelWpfDemo.Views
 
 
                 _localStudents.Add(_student);
-                XMLContext.StudentsToXML(_localStudents, _path);
+                XMLContext.StudentsToXML(_localStudents, StaticData.Path);
                 MessageBox.Show($"Student databse updated:\nName:{_student.FirstName}\nLast Name:{_student.LastName}\nAge: {_student.Age}", "Edinted", MessageBoxButton.OK, MessageBoxImage.Information);
 
                 this.Close();
