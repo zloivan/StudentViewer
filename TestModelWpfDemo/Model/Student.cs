@@ -1,4 +1,4 @@
-﻿namespace TestModelWpfDemo.Model
+﻿namespace StudentViewer.Model
 {
     public enum Gender
     {

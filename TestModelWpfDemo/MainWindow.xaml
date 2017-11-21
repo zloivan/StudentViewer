@@ -3,10 +3,10 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:TestModelWpfDemo"
-        xmlns:Model="clr-namespace:TestModelWpfDemo.Model" x:Class="TestModelWpfDemo.MainWindow"
+        xmlns:local="clr-namespace:StudentViewer"
+        xmlns:Model="clr-namespace:StudentViewer.Model" x:Class="StudentViewer.MainWindow"
         mc:Ignorable="d"
-        Title="Student Viewer" Height="350" Width="530" MaxWidth="600" MinWidth="530">
+        Title="Student Viewer" Height="350" Width="620" MaxWidth="700" MinWidth="620">
 
     <Grid>
         <Grid.RowDefinitions>
@@ -19,6 +19,7 @@
             <Button x:Name="createBtn" Content="Create New" Width="75" Margin="5" Click="CreateBtn_Click"/>
             <Button x:Name="DeleteBtn" Content="Delete" Width="75" Margin="5" Click="DeleteBtn_Click" />
             <Button x:Name="EditBtn" Content="Edit" Width="75" Margin="5" Click="EditBtn_Click"  />
+            <Button x:Name="BrowseBtn" Content="Browse" Width="75" Margin="5" Click="BrowseBtn_Click" />
         </StackPanel>
         <DataGrid 
             RowBackground="Azure"
